@@ -33,7 +33,7 @@ opt_eps0 10.0
 #
 bmin  1.0
 bmax  1.1
-mc_eps0 10.0
+mc_eps0 100.0
 DELTA 0.4
 
 

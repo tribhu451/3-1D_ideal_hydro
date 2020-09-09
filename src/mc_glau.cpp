@@ -31,6 +31,7 @@ void mc_glau::Set_ic(Fluid* f, EoS* eos, double tau_0)
   if(X_hard != 1.0){cout<<"two component energy deposition with X_hard"<<endl;}
   cout<<"Energy : "<<sigma<<endl;
   cout<<"Gaussian smearing with std deviation : "<<DELTA<<endl;
+  cout<<"Multiplicity scaling factor eps0 : "<<eps0<<endl;
 
 
   

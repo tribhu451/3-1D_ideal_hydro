@@ -158,6 +158,7 @@ void opt_glau::Set_ic(Fluid* f, EoS* eos, double tau_0)
   cout<<"Impact parameter : "<<b<<" fm"<<endl;
   double npart = NPart();
   cout<<"No. of participants : "<<npart<<endl;
+  cout<<"Multiplicity scaling factor eps0 : "<<eps0<<endl;
 
 
   Cell* c;

@@ -10,8 +10,8 @@ init_mode 1
 
 #Nucleus 
 #
-A 238
-B 238
+A 197
+B 197
 sigma 4.2
 Radius 6.37
 dlt 0.54
@@ -31,8 +31,8 @@ opt_eps0 10.0
 
 #if MC Glauber is choosen fill below :
 #
-bmin  1.0
-bmax  1.1
+bmin  0.2
+bmax  0.3
 mc_eps0 100.0
 DELTA 0.4
 
@@ -57,7 +57,7 @@ neta  101
 # dtau, hydro starting time, freezeout condition etc.
 #
 dtau 0.05
-tau0 0.40
+tau0 0.25
 Efreeze  0.24
 tauMax  13.0
 

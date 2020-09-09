@@ -1,0 +1,68 @@
+# The code will not read any line of this file starting with symbol "#" and any empty line. 
+
+
+
+# [Info] init_mode == 0/1 (optical Glauber/ MC Glauber) 
+#
+init_mode 1
+
+
+
+#Nucleus 
+#
+A 238
+B 238
+sigma 4.2
+Radius 6.37
+dlt 0.54
+BETA2 0.
+BETA4 0.
+npp 2.49
+X_hard 0.13
+
+
+
+#if Optical Glauber is choosen fill below :
+#
+Impact_parameter 0.3
+opt_eps0 10.0
+
+
+
+#if MC Glauber is choosen fill below :
+#
+bmin  1.0
+bmax  1.1
+mc_eps0 10.0
+DELTA 0.4
+
+
+ 
+
+#Hydro grid setup
+#
+xmax  +14. 
+xmin  -14. 
+ymax  +14.
+ymin  -14.
+etamax  +10.0
+etamin  -10.0
+nx  141
+ny  141
+neta  101
+
+
+
+
+# dtau, hydro starting time, freezeout condition etc.
+#
+dtau 0.05
+tau0 0.40
+Efreeze  0.24
+tauMax  13.0
+
+
+
+
+
+

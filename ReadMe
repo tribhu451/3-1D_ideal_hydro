@@ -1,0 +1,24 @@
+3+1D Ideal Hydro 
+
+--> Initial condition from optical Glauber and Monte Carlo Glauber model .
+--> HLLE algo to solve hydro equation
+--> Freezeout hypersurface will be generated in "hydro_output/" folder in .xml format.
+    One can use that .xml file as input for therminator code. 
+
+
+Note : Some classes in this code are inspired from the reference below.
+
+           |
+           |
+           |
+          \|/
+           w
+           
+*******************************************************************************
+*                                                                             *
+*            vHLLE : a 3D viscous hydrodynamic code                           *
+*            by Iurii Karpenko  et. al.                                       *
+*  Comput. Phys. Commun. 185 (2014), 3016    [arXiv:1312.4160]                *
+*                                                                             *
+*                                                                             *
+*******************************************************************************

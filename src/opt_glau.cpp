@@ -160,6 +160,7 @@ void opt_glau::Set_ic(Fluid* f, EoS* eos, double tau_0)
   cout<<"No. of participants : "<<npart<<endl;
   cout<<"Multiplicity scaling factor eps0 : "<<eps0<<endl;
 
+   double total_deposited = 0.0;  // total deposited energy
 
   Cell* c;
    for(int i=0; i<f->Get_nx(); i++)
@@ -175,12 +176,14 @@ void opt_glau::Set_ic(Fluid* f, EoS* eos, double tau_0)
           double nchxy =((1-X_hard)*n_pp*(npartxy(x_, y_)/2.0))+(X_hard*n_pp*ncollxy(x_, y_));
           eps = nchxy*exp(((-(( abs(eta) - 1.5)*( abs(eta)-1.5))/(2*1.3*1.3)))*theta(abs(eta)-1.5));  //https://arxiv.org/pdf/0902.4121.pdf  (eqn_2.12)
             
+          total_deposited = total_deposited + eps ;
 
           double nb= 0; double nq = 0; double ns =0; double vx=0; double vy=0; double vz= 0;
           c->Set_prim_var(eos,tau_0, eps0*eps, nb, nq,  ns,  vx,  vy,  vz);
            }
 
   
+     cout<<"total amount of deposited energy is = "<<total_deposited<<endl;
      cout<<"\n";
 
 }

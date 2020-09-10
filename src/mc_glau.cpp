@@ -97,6 +97,8 @@ void mc_glau::Set_ic(Fluid* f, EoS* eos, double tau_0)
   double dy= f->Get_dy();
 
 
+   double total_deposited = 0.0;  // total deposited energy
+
    for(int i=0; i<f->Get_nx(); i++)
       for(int j=0; j<f->Get_ny(); j++)
           for(int k=0; k<f->Get_nz(); k++)
@@ -113,22 +115,27 @@ void mc_glau::Set_ic(Fluid* f, EoS* eos, double tau_0)
               {
                 double temp1=TMath::Power(x_-npart_x[ks],2)+TMath::Power(y_-npart_y[ks],2);
                 double value1=0.5*npp*(1-X_hard);
-                eps=eps+((dx*dy)*(value1/(TMath::Sqrt(2*TMath::Pi()*DELTA*DELTA)))*(TMath::Exp((-1.0/(2.0*DELTA*DELTA))*(temp1))));
+                eps=eps+((value1/(TMath::Sqrt(2*TMath::Pi()*DELTA*DELTA)))*(TMath::Exp((-1.0/(2.0*DELTA*DELTA))*(temp1))));
               }
 
          for(int ks=0; ks<NColl; ks++)
               {
                 double temp1=TMath::Power(x_-ncoll_x[ks],2)+TMath::Power(y_-ncoll_y[ks],2);
                 double value1=npp*X_hard;
-                eps=eps+((dx*dy)*(value1/(TMath::Sqrt(2*TMath::Pi()*DELTA*DELTA)))*(TMath::Exp((-1.0/(2.0*DELTA*DELTA))*(temp1))));
+                eps=eps+((value1/(TMath::Sqrt(2*TMath::Pi()*DELTA*DELTA)))*(TMath::Exp((-1.0/(2.0*DELTA*DELTA))*(temp1))));
               }
 
            if(eps < 0.00001 ) {eps =0;}
            eps = eps*exp(((-(( abs(eta) - 1.5)*( abs(eta)-1.5))/(2*1.3*1.3)))*theta(abs(eta)-1.5));  //https://arxiv.org/pdf/0902.4121.pdf  (eqn_2.12)
            double vx=0; double vy=0; double vz= 0.0; double nb= 0; double ns=0; double nq=0;
+
+          total_deposited = total_deposited + eps ;
+
 	   c->Set_prim_var(eos,tau_0,eps0*eps, nb, nq,  ns,  vx,  vy,  vz);
 
           }
+
+     cout<<"total amount of deposited energy is = "<<total_deposited<<endl;
     
      cout<<"\n";
 

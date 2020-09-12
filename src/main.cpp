@@ -251,7 +251,10 @@ int main()
   cout << "Total time taken : "
        << sdxduration.count() << "seconds" << endl;
   
-
+  ofstream aFile;
+  aFile.open("hydro_complete_flag.txt");
+  aFile<<"Job completed ..."<<endl;
+  aFile.close();
 
   delete f;
   delete eos;

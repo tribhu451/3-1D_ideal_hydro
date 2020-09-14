@@ -1,9 +1,28 @@
 3+1D Ideal Hydro 
+*****************
 
---> Initial condition from optical Glauber and Monte Carlo Glauber model .
---> HLLE algo to solve hydro equation
---> Freezeout hypersurface will be generated in "hydro_output/" folder in .xml format.
-    One can use that .xml file as input for therminator code. 
+1) Initial condition from optical Glauber and Monte Carlo Glauber model.
+2) HLLE algo to solve hydro equation.
+3) Freezeout hypersurface will be generated in "hydro_output/" folder in .xml format.
+   One can use that .xml file as input for therminator code.
+4) Particlisation through therminator. 
+
+
+
+about the bash script "execution.sh" :
+*************************************
+
+1) After setting the parameters in the file "input.dat", one should run this script.
+2) The script is wriiten in such a way that, after the completation of hydro evolution automatically
+   the generatd file "hydro_output/*.xml" will move inside the therminator code. 
+3) Then job will be submitted for hadronisationa. Finally after the completation of therminator
+   run, one can collect the output .root files from "therminator/events/lhyquid3d*/ ".
+
+
+
+
+
+
 
 
 Note : Some classes in this code are inspired from the reference below.

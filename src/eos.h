@@ -114,5 +114,5 @@ double pressure( double eg,double _nb, double _nq, double _ns);
 double temperature( double eg,double _nb, double _nq, double _ns);
 double cs(){return 1./TMath::Sqrt(3);};
 double cs2(){return 1./3.;};
-
+double cs_2( double eg,double _nb, double _nq, double _ns);
 };

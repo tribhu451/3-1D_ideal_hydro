@@ -283,25 +283,25 @@ EoS::EoS()
 
    acc = gsl_interp_accel_alloc();
 
-   spline_1 = gsl_spline_alloc (gsl_interp_cspline, ne_1);
+   spline_temp_1 = gsl_spline_alloc (gsl_interp_cspline, ne_1);
    gsl_spline_init (spline_1, eps_1, tmp_1, ne_1);
 
-   spline_2 = gsl_spline_alloc (gsl_interp_cspline, ne_2);
+   spline_temp_2 = gsl_spline_alloc (gsl_interp_cspline, ne_2);
    gsl_spline_init (spline_2, eps_2, tmp_2, ne_2);
 
-   spline_3 = gsl_spline_alloc (gsl_interp_cspline, ne_3);
+   spline_temp_3 = gsl_spline_alloc (gsl_interp_cspline, ne_3);
    gsl_spline_init (spline_3, eps_3, tmp_3, ne_3);
 
-   spline_4 = gsl_spline_alloc (gsl_interp_cspline, ne_4);
+   spline_temp_4 = gsl_spline_alloc (gsl_interp_cspline, ne_4);
    gsl_spline_init (spline_4, eps_4, tmp_4, ne_4);
 
-  spline_5 = gsl_spline_alloc (gsl_interp_cspline, ne_5);
+   spline_temp_5 = gsl_spline_alloc (gsl_interp_cspline, ne_5);
    gsl_spline_init (spline_5, eps_5, tmp_5, ne_5);
 
-   spline_6 = gsl_spline_alloc (gsl_interp_cspline, ne_6);
+   spline_temp_6 = gsl_spline_alloc (gsl_interp_cspline, ne_6);
    gsl_spline_init (spline_6, eps_6, tmp_6, ne_6);
 
-  spline_7 = gsl_spline_alloc (gsl_interp_cspline, ne_7);
+   spline_temp_7 = gsl_spline_alloc (gsl_interp_cspline, ne_7);
    gsl_spline_init (spline_7, eps_7, tmp_7, ne_7);
 
 
@@ -360,15 +360,39 @@ double EoS::temperature( double eg,double _nb, double _nq, double _ns)
 {
 
         double yi;
-        if (eg >= e0_1 && eg < e0_2) { yi = gsl_spline_eval (spline_1, eg, acc);}
-        if (eg >= e0_2 && eg < e0_3) { yi = gsl_spline_eval (spline_2, eg, acc);}
-        if (eg >= e0_3 && eg < e0_4) { yi = gsl_spline_eval (spline_3, eg, acc);}
-        if (eg >= e0_4 && eg < e0_5) { yi = gsl_spline_eval (spline_4, eg, acc);}
-        if (eg >= e0_5 && eg < e0_6) { yi = gsl_spline_eval (spline_5, eg, acc);}
-        if (eg >= e0_6 && eg < e0_7) { yi = gsl_spline_eval (spline_6, eg, acc);}
-        if (eg >= e0_7             ) { yi = gsl_spline_eval (spline_7, eg, acc);}
+        if (eg >= e0_1 && eg < e0_2) { yi = gsl_spline_eval (spline_temp_1, eg, acc);}
+        if (eg >= e0_2 && eg < e0_3) { yi = gsl_spline_eval (spline_temp_2, eg, acc);}
+        if (eg >= e0_3 && eg < e0_4) { yi = gsl_spline_eval (spline_temp_3, eg, acc);}
+        if (eg >= e0_4 && eg < e0_5) { yi = gsl_spline_eval (spline_temp_4, eg, acc);}
+        if (eg >= e0_5 && eg < e0_6) { yi = gsl_spline_eval (spline_temp_5, eg, acc);}
+        if (eg >= e0_6 && eg < e0_7) { yi = gsl_spline_eval (spline_temp_6, eg, acc);}
+        if (eg >= e0_7             ) { yi = gsl_spline_eval (spline_temp_7, eg, acc);}
         return yi;
  
 }
 
+
+double EoS::cs_2( double eg,double _nb, double _nq, double _ns)
+{
+ if(std::isinf(eg) or std::isnan(eg)) {
+   std::cout << "inf energy entered to eos\n"<<std::endl;
+  }
+
+
+        double yi;
+        if (eg >= e0_1 && eg < e0_2) { yi = gsl_spline_eval_deriv (spline_prs_1, eg, acc);}
+        if (eg >= e0_2 && eg < e0_3) { yi = gsl_spline_eval_deriv (spline_prs_2, eg, acc);}
+        if (eg >= e0_3 && eg < e0_4) { yi = gsl_spline_eval_deriv (spline_prs_3, eg, acc);}
+        if (eg >= e0_4 && eg < e0_5) { yi = gsl_spline_eval_deriv (spline_prs_4, eg, acc);}
+        if (eg >= e0_5 && eg < e0_6) { yi = gsl_spline_eval_deriv (spline_prs_5, eg, acc);}
+        if (eg >= e0_6 && eg < e0_7) { yi = gsl_spline_eval_deriv (spline_prs_6, eg, acc);}
+        if (eg >= e0_7             ) { yi = gsl_spline_eval_deriv (spline_prs_7, eg, acc);}
+        if( eg< e0_1 || eg > e0_7  ) { yi = 1./3.0;}
+
+       if(std::isinf(yi) or std::isnan(yi))
+         {
+          std::cout << "inf cs2 returned by eos\n"<<std::endl;
+        }
+        return yi;
+}
 

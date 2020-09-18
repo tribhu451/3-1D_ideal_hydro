@@ -91,13 +91,13 @@ void is_file_exist(fstream& file);
 
   gsl_interp_accel *acc;
 
-gsl_spline *spline_1; 
-gsl_spline *spline_2; 
-gsl_spline *spline_3; 
-gsl_spline *spline_4;
-gsl_spline *spline_5; 
-gsl_spline *spline_6;
-gsl_spline *spline_7; 
+gsl_spline *spline_temp_1; 
+gsl_spline *spline_temp_2; 
+gsl_spline *spline_temp_3; 
+gsl_spline *spline_temp_4;
+gsl_spline *spline_temp_5; 
+gsl_spline *spline_temp_6;
+gsl_spline *spline_temp_7; 
 
 gsl_spline *spline_prs_1;
 gsl_spline *spline_prs_2;

@@ -9,13 +9,13 @@ void EoS::is_file_exist(fstream& file)
 
 EoS::~EoS()
 {
-    gsl_spline_free (spline_1);
-    gsl_spline_free (spline_2);
-    gsl_spline_free (spline_3);
-    gsl_spline_free (spline_4);
-    gsl_spline_free (spline_5);
-    gsl_spline_free (spline_6);
-    gsl_spline_free (spline_7);
+    gsl_spline_free (spline_temp_1);
+    gsl_spline_free (spline_temp_2);
+    gsl_spline_free (spline_temp_3);
+    gsl_spline_free (spline_temp_4);
+    gsl_spline_free (spline_temp_5);
+    gsl_spline_free (spline_temp_6);
+    gsl_spline_free (spline_temp_7);
 
     gsl_spline_free (spline_prs_1);
     gsl_spline_free (spline_prs_2);
@@ -284,25 +284,25 @@ EoS::EoS()
    acc = gsl_interp_accel_alloc();
 
    spline_temp_1 = gsl_spline_alloc (gsl_interp_cspline, ne_1);
-   gsl_spline_init (spline_1, eps_1, tmp_1, ne_1);
+   gsl_spline_init (spline_temp_1, eps_1, tmp_1, ne_1);
 
    spline_temp_2 = gsl_spline_alloc (gsl_interp_cspline, ne_2);
-   gsl_spline_init (spline_2, eps_2, tmp_2, ne_2);
+   gsl_spline_init (spline_temp_2, eps_2, tmp_2, ne_2);
 
    spline_temp_3 = gsl_spline_alloc (gsl_interp_cspline, ne_3);
-   gsl_spline_init (spline_3, eps_3, tmp_3, ne_3);
+   gsl_spline_init (spline_temp_3, eps_3, tmp_3, ne_3);
 
    spline_temp_4 = gsl_spline_alloc (gsl_interp_cspline, ne_4);
-   gsl_spline_init (spline_4, eps_4, tmp_4, ne_4);
+   gsl_spline_init (spline_temp_4, eps_4, tmp_4, ne_4);
 
    spline_temp_5 = gsl_spline_alloc (gsl_interp_cspline, ne_5);
-   gsl_spline_init (spline_5, eps_5, tmp_5, ne_5);
+   gsl_spline_init (spline_temp_5, eps_5, tmp_5, ne_5);
 
    spline_temp_6 = gsl_spline_alloc (gsl_interp_cspline, ne_6);
-   gsl_spline_init (spline_6, eps_6, tmp_6, ne_6);
+   gsl_spline_init (spline_temp_6, eps_6, tmp_6, ne_6);
 
    spline_temp_7 = gsl_spline_alloc (gsl_interp_cspline, ne_7);
-   gsl_spline_init (spline_7, eps_7, tmp_7, ne_7);
+   gsl_spline_init (spline_temp_7, eps_7, tmp_7, ne_7);
 
 
 

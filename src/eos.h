@@ -107,10 +107,20 @@ gsl_spline *spline_prs_5;
 gsl_spline *spline_prs_6;
 gsl_spline *spline_prs_7;
 
+gsl_spline *spline_ntrpy_1; 
+gsl_spline *spline_ntrpy_2; 
+gsl_spline *spline_ntrpy_3; 
+gsl_spline *spline_ntrpy_4;
+gsl_spline *spline_ntrpy_5; 
+gsl_spline *spline_ntrpy_6;
+gsl_spline *spline_ntrpy_7; 
+
+
 public:
 EoS();
 ~EoS();
 double pressure( double eg,double _nb, double _nq, double _ns);
+double entropy( double eg,double _nb, double _nq, double _ns);
 double temperature( double eg,double _nb, double _nq, double _ns);
 double cs(){return 1./TMath::Sqrt(3);};
 double cs2(){return 1./3.;};

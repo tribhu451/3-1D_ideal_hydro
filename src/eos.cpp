@@ -17,6 +17,15 @@ EoS::~EoS()
     gsl_spline_free (spline_temp_6);
     gsl_spline_free (spline_temp_7);
 
+
+    gsl_spline_free (spline_ntrpy_1);
+    gsl_spline_free (spline_ntrpy_2);
+    gsl_spline_free (spline_ntrpy_3);
+    gsl_spline_free (spline_ntrpy_4);
+    gsl_spline_free (spline_ntrpy_5);
+    gsl_spline_free (spline_ntrpy_6);
+    gsl_spline_free (spline_ntrpy_7);
+
     gsl_spline_free (spline_prs_1);
     gsl_spline_free (spline_prs_2);
     gsl_spline_free (spline_prs_3);
@@ -283,6 +292,7 @@ EoS::EoS()
 
    acc = gsl_interp_accel_alloc();
 
+   // Initialize temperature
    spline_temp_1 = gsl_spline_alloc (gsl_interp_cspline, ne_1);
    gsl_spline_init (spline_temp_1, eps_1, tmp_1, ne_1);
 
@@ -305,11 +315,34 @@ EoS::EoS()
    gsl_spline_init (spline_temp_7, eps_7, tmp_7, ne_7);
 
 
+   // Initialize entropy
+   spline_ntrpy_1 = gsl_spline_alloc (gsl_interp_cspline, ne_1);
+   gsl_spline_init (spline_ntrpy_1, eps_1, ent_1, ne_1);
 
+   spline_ntrpy_2 = gsl_spline_alloc (gsl_interp_cspline, ne_2);
+   gsl_spline_init (spline_ntrpy_2, eps_2, ent_2, ne_2);
+
+   spline_ntrpy_3 = gsl_spline_alloc (gsl_interp_cspline, ne_3);
+   gsl_spline_init (spline_ntrpy_3, eps_3, ent_3, ne_3);
+
+   spline_ntrpy_4 = gsl_spline_alloc (gsl_interp_cspline, ne_4);
+   gsl_spline_init (spline_ntrpy_4, eps_4, ent_4, ne_4);
+
+   spline_ntrpy_5 = gsl_spline_alloc (gsl_interp_cspline, ne_5);
+   gsl_spline_init (spline_ntrpy_5, eps_5, ent_5, ne_5);
+
+   spline_ntrpy_6 = gsl_spline_alloc (gsl_interp_cspline, ne_6);
+   gsl_spline_init (spline_ntrpy_6, eps_6, ent_6, ne_6);
+
+   spline_ntrpy_7 = gsl_spline_alloc (gsl_interp_cspline, ne_7);
+   gsl_spline_init (spline_ntrpy_7, eps_7, ent_7, ne_7);
+
+
+   // Initialize pressure
    spline_prs_1 = gsl_spline_alloc (gsl_interp_cspline, ne_1);
    gsl_spline_init (spline_prs_1, eps_1, prs_1, ne_1);
 
-  spline_prs_2 = gsl_spline_alloc (gsl_interp_cspline, ne_2);
+   spline_prs_2 = gsl_spline_alloc (gsl_interp_cspline, ne_2);
    gsl_spline_init (spline_prs_2, eps_2, prs_2, ne_2);
 
    spline_prs_3 = gsl_spline_alloc (gsl_interp_cspline, ne_3);
@@ -367,6 +400,22 @@ double EoS::temperature( double eg,double _nb, double _nq, double _ns)
         if (eg >= e0_5 && eg < e0_6) { yi = gsl_spline_eval (spline_temp_5, eg, acc);}
         if (eg >= e0_6 && eg < e0_7) { yi = gsl_spline_eval (spline_temp_6, eg, acc);}
         if (eg >= e0_7             ) { yi = gsl_spline_eval (spline_temp_7, eg, acc);}
+        return yi;
+ 
+}
+
+
+double EoS::entropy( double eg,double _nb, double _nq, double _ns)
+{
+
+        double yi;
+        if (eg >= e0_1 && eg < e0_2) { yi = gsl_spline_eval (spline_ntrpy_1, eg, acc);}
+        if (eg >= e0_2 && eg < e0_3) { yi = gsl_spline_eval (spline_ntrpy_2, eg, acc);}
+        if (eg >= e0_3 && eg < e0_4) { yi = gsl_spline_eval (spline_ntrpy_3, eg, acc);}
+        if (eg >= e0_4 && eg < e0_5) { yi = gsl_spline_eval (spline_ntrpy_4, eg, acc);}
+        if (eg >= e0_5 && eg < e0_6) { yi = gsl_spline_eval (spline_ntrpy_5, eg, acc);}
+        if (eg >= e0_6 && eg < e0_7) { yi = gsl_spline_eval (spline_ntrpy_6, eg, acc);}
+        if (eg >= e0_7             ) { yi = gsl_spline_eval (spline_ntrpy_7, eg, acc);}
         return yi;
  
 }

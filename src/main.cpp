@@ -10,6 +10,7 @@
 #include "freeze.h"
 #include "opt_glau.h"
 #include "mc_glau.h"
+#include "out.h"
 
 using std::cout;
 using std::ofstream;
@@ -21,53 +22,6 @@ using std::cin;
 using std::fstream;
 using std::ios;
 
-
-//This function stores the energy density value at each grid point of the entire fluid at a given time. 
-void output(Fluid* f,EoS* eos,double time)
-{
-  
-  cout<<"After time "<<time<<" data is recorded"<<endl;
-  char name[200];
-
-  ofstream File1;
-  sprintf(name,"output_after/longitudinal_at_tau_%f_fm.dat",time);	
-  File1.open(name);
-  
-  ofstream File2;
-  sprintf(name,"output_after/transverse_at_tau_%f_fm.dat",time);	
-  File2.open(name);
-
-  ofstream File3;
-  sprintf(name,"output_after/temperature_at_tau_%f_fm.dat",time);	
-  File3.open(name);
-  
-  double erg,vx,vy,vz,nb,nq,ns,pressure;
-  int nx  = f->Get_nx();
-  int ny  = f->Get_ny();
-  int nz  = f->Get_nz();
-  for(int i=0; i<nx ; i++)
-    {
-      for(int j=0; j<ny; j++)
-        {
-          for(int k=0; k<nz; k++)
-	    {
-	      double x_ = f->Get_x(i);
-	      double y_ = f->Get_y(j);
-	      double z_ = f->Get_z(k);
-	      double rt = TMath::Sqrt(x_*x_+y_*y_);
-	      f->Get_cell(i,j,k)->Get_physical_var(eos, time, erg, pressure, nb, nq, ns, vx,vy, vz);          
-	      double T = eos->temperature(erg,nb, nq,ns);
-	      if (i==nx/2 && j==ny/2)                    File1<<z_<<"\t"<<erg<<"\t"<<0.5*log((1.0+vz)/(1.0-vz))<<endl;
-	      if(k == nz/2 )                             File2<<f->Get_x(i)<<"\t"<<f->Get_y(j)
-                                                              <<"\t"<<rt<<"\t"<<erg<<"\t"<<nb<<"\t"<<vx<<"\t"<<vy<<endl;
-	      if(i==(nx)/2 && j==(ny)/2 && k == (nz)/2)  File3<<time<<"\t"<<1000*T<<"\t"<<erg<<endl;
-	    }
-	}
-    }
-  File1.close();
-  File2.close();
-  File3.close();
-}
 
 
 
@@ -150,6 +104,8 @@ int main()
   cout<<"*********************************************\n"<<endl;
   
 
+  // hydro-output during evolution
+  output_hydro ou;
 
   //EoS allocation
   EoS* eos = new EoS();
@@ -182,7 +138,6 @@ int main()
   
 
 
-
   // freezeout hypersurface initialization ...
   evolve* map =new evolve();
   cout<<"\n\n"<<endl;  
@@ -201,8 +156,7 @@ int main()
 
   // at starting time hypersurface is stored. energy density is also stored at tau = tau0.
   map->put(0,f,tau0,eos);
-  output(f,eos,tau0);
-
+  ou.output(f,eos,tau0); ou.anisotropy_output(f,eos,tau0);
 
   // evolution loop ...
   int maxstep = ceil((tauMax - tau0) / dtau);
@@ -230,8 +184,10 @@ int main()
 	    ", "<<gg+1<<" step saved"<<endl;
 	}
 
-     //if( abs (h->getTau() - 1.00) < 0.001 )  output(f,eos,h->getTau());      //uncomment this line to store the energy density value at tau = 1.00fm/c
-     //if( abs (h->getTau() - 5.00) < 0.001 )  output(f,eos,h->getTau());      // same as above but at tau = 5.00fm/c 
+
+      //uncomment below line to store the energy density value at tau = 1.00fm/c
+      if(abs(h->getTau()-1.00)<0.001){ou.output(f,eos,h->getTau());ou.anisotropy_output(f,eos,h->getTau());}      
+
     }
 
   

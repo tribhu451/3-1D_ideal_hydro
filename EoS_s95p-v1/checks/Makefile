@@ -15,10 +15,10 @@ LDFLAGS       = -O3 -march=native
 CXXFLAGS     += $(ROOTCFLAGS) $(EXTRA_FLAGS)
 LIBS          = $(ROOTLIBS) $(SYSLIBS) $(GSLLIBS)
 
-vpath %.cpp src
+#vpath %.cpp src
 objdir     = obj
 
-SRC        = main.cpp Cell.cpp Fluid.cpp Convert.cpp eos.cpp Hydro.cpp freeze.cpp Vector3D.cpp sVector3D.cpp Nucleus.cpp nPart_nColl.cpp mc_glau.cpp opt_glau.cpp out.cpp
+SRC        = plot_e_vs_cs2.cpp
 OBJS       = $(patsubst %.cpp,$(objdir)/%.o,$(SRC)) 
               
 TARGET	   = 3Dhydro
